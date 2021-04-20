@@ -1,0 +1,213 @@
+#! /usr/local/iverilog/bin/vvp
+:ivl_version "11.0 (devel)" "(s20150603-642-g3bdb50da)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "system";
+:vpi_module "vhdl_sys";
+:vpi_module "vhdl_textio";
+:vpi_module "v2005_math";
+:vpi_module "va_math";
+S_000000000108da30 .scope module, "testbench" "testbench" 2 1;
+ .timescale 0 0;
+v00000000010f3aa0_0 .var "a", 7 0;
+v00000000010f3c80_0 .net "ab", 15 0, L_00000000010f4f10;  1 drivers
+v00000000010f3d20_0 .var "b", 7 0;
+v00000000010f5eb0_0 .net "busy", 0 0, L_00000000010f6770;  1 drivers
+v00000000010f64f0_0 .var "clk", 0 0;
+v00000000010f6090_0 .var "start", 0 0;
+S_000000000108bce0 .scope module, "multiplier1" "multiplier" 2 6, 3 1 0, S_000000000108da30;
+ .timescale 0 0;
+    .port_info 0 /OUTPUT 16 "prod";
+    .port_info 1 /OUTPUT 1 "busy";
+    .port_info 2 /INPUT 8 "mc";
+    .port_info 3 /INPUT 8 "mp";
+    .port_info 4 /INPUT 1 "clk";
+    .port_info 5 /INPUT 1 "start";
+L_0000000001086640 .functor NOT 8, v00000000010f45e0_0, C4<00000000>, C4<00000000>, C4<00000000>;
+v00000000010f3e60_0 .var "A", 7 0;
+v00000000010f45e0_0 .var "M", 7 0;
+v00000000010f38c0_0 .var "Q", 7 0;
+v00000000010f40e0_0 .var "Q_1", 0 0;
+L_00000000010f6928 .functor BUFT 1, C4<0000000000000000000000000000>, C4<0>, C4<0>, C4<0>;
+v00000000010f3b40_0 .net *"_s11", 27 0, L_00000000010f6928;  1 drivers
+L_00000000010f6970 .functor BUFT 1, C4<00000000000000000000000000001000>, C4<0>, C4<0>, C4<0>;
+v00000000010f4040_0 .net/2u *"_s12", 31 0, L_00000000010f6970;  1 drivers
+v00000000010f4220_0 .net *"_s8", 31 0, L_00000000010f5f50;  1 drivers
+v00000000010f42c0_0 .net "busy", 0 0, L_00000000010f6770;  alias, 1 drivers
+v00000000010f47c0_0 .net "clk", 0 0, v00000000010f64f0_0;  1 drivers
+v00000000010f4360_0 .var "count", 3 0;
+v00000000010f4400_0 .net "difference", 7 0, L_00000000010f63b0;  1 drivers
+v00000000010f3a00_0 .net "mc", 7 0, v00000000010f3aa0_0;  1 drivers
+v00000000010f44a0_0 .net "mp", 7 0, v00000000010f3d20_0;  1 drivers
+v00000000010f4540_0 .net "prod", 15 0, L_00000000010f4f10;  alias, 1 drivers
+v00000000010f3be0_0 .net "start", 0 0, v00000000010f6090_0;  1 drivers
+v00000000010f4680_0 .net "sum", 7 0, L_00000000010f5c30;  1 drivers
+E_000000000108a1d0 .event posedge, v00000000010f47c0_0;
+L_00000000010f4f10 .concat [ 8 8 0 0], v00000000010f38c0_0, v00000000010f3e60_0;
+L_00000000010f5f50 .concat [ 4 28 0 0], v00000000010f4360_0, L_00000000010f6928;
+L_00000000010f6770 .cmp/gt 32, L_00000000010f6970, L_00000000010f5f50;
+S_000000000108be70 .scope module, "adder" "alu" 3 24, 3 31 0, S_000000000108bce0;
+ .timescale 0 0;
+    .port_info 0 /OUTPUT 8 "out";
+    .port_info 1 /INPUT 8 "a";
+    .port_info 2 /INPUT 8 "b";
+    .port_info 3 /INPUT 1 "cin";
+v0000000001087da0_0 .net *"_s0", 7 0, L_00000000010f4bf0;  1 drivers
+L_00000000010f69b8 .functor BUFT 1, C4<00000000>, C4<0>, C4<0>, C4<0>;
+v00000000010840a0_0 .net *"_s2", 7 0, L_00000000010f69b8;  1 drivers
+v0000000001097490_0 .net "a", 7 0, v00000000010f3e60_0;  1 drivers
+v0000000001097530_0 .net "b", 7 0, v00000000010f45e0_0;  1 drivers
+L_00000000010f6898 .functor BUFT 1, C4<0>, C4<0>, C4<0>, C4<0>;
+v00000000010975d0_0 .net "cin", 0 0, L_00000000010f6898;  1 drivers
+v0000000001097670_0 .net "out", 7 0, L_00000000010f5c30;  alias, 1 drivers
+L_00000000010f4bf0 .arith/sum 8, v00000000010f3e60_0, v00000000010f45e0_0;
+L_00000000010f5c30 .arith/sum 8, L_00000000010f4bf0, L_00000000010f69b8;
+S_0000000001097710 .scope module, "subtracter" "alu" 3 25, 3 31 0, S_000000000108bce0;
+ .timescale 0 0;
+    .port_info 0 /OUTPUT 8 "out";
+    .port_info 1 /INPUT 8 "a";
+    .port_info 2 /INPUT 8 "b";
+    .port_info 3 /INPUT 1 "cin";
+v00000000010f3fa0_0 .net *"_s0", 7 0, L_00000000010f5a50;  1 drivers
+L_00000000010f6a00 .functor BUFT 1, C4<00000001>, C4<0>, C4<0>, C4<0>;
+v00000000010f4180_0 .net *"_s2", 7 0, L_00000000010f6a00;  1 drivers
+v00000000010f3960_0 .net "a", 7 0, v00000000010f3e60_0;  alias, 1 drivers
+v00000000010f3dc0_0 .net "b", 7 0, L_0000000001086640;  1 drivers
+L_00000000010f68e0 .functor BUFT 1, C4<1>, C4<0>, C4<0>, C4<0>;
+v00000000010f4720_0 .net "cin", 0 0, L_00000000010f68e0;  1 drivers
+v00000000010f3f00_0 .net "out", 7 0, L_00000000010f63b0;  alias, 1 drivers
+L_00000000010f5a50 .arith/sum 8, v00000000010f3e60_0, L_0000000001086640;
+L_00000000010f63b0 .arith/sum 8, L_00000000010f5a50, L_00000000010f6a00;
+    .scope S_000000000108bce0;
+T_0 ;
+    %wait E_000000000108a1d0;
+    %load/vec4 v00000000010f3be0_0;
+    %flag_set/vec4 8;
+    %jmp/0xz  T_0.0, 8;
+    %pushi/vec4 0, 0, 8;
+    %assign/vec4 v00000000010f3e60_0, 0;
+    %load/vec4 v00000000010f3a00_0;
+    %assign/vec4 v00000000010f45e0_0, 0;
+    %load/vec4 v00000000010f44a0_0;
+    %assign/vec4 v00000000010f38c0_0, 0;
+    %pushi/vec4 0, 0, 1;
+    %assign/vec4 v00000000010f40e0_0, 0;
+    %pushi/vec4 0, 0, 4;
+    %assign/vec4 v00000000010f4360_0, 0;
+    %jmp T_0.1;
+T_0.0 ;
+    %load/vec4 v00000000010f38c0_0;
+    %parti/s 1, 0, 2;
+    %load/vec4 v00000000010f40e0_0;
+    %concat/vec4; draw_concat_vec4
+    %dup/vec4;
+    %pushi/vec4 1, 0, 2;
+    %cmp/u;
+    %jmp/1 T_0.2, 6;
+    %dup/vec4;
+    %pushi/vec4 2, 0, 2;
+    %cmp/u;
+    %jmp/1 T_0.3, 6;
+    %load/vec4 v00000000010f3e60_0;
+    %parti/s 1, 7, 4;
+    %load/vec4 v00000000010f3e60_0;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v00000000010f38c0_0;
+    %concat/vec4; draw_concat_vec4
+    %split/vec4 1;
+    %assign/vec4 v00000000010f40e0_0, 0;
+    %split/vec4 8;
+    %assign/vec4 v00000000010f38c0_0, 0;
+    %assign/vec4 v00000000010f3e60_0, 0;
+    %jmp T_0.5;
+T_0.2 ;
+    %load/vec4 v00000000010f4680_0;
+    %parti/s 1, 7, 4;
+    %load/vec4 v00000000010f4680_0;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v00000000010f38c0_0;
+    %concat/vec4; draw_concat_vec4
+    %split/vec4 1;
+    %assign/vec4 v00000000010f40e0_0, 0;
+    %split/vec4 8;
+    %assign/vec4 v00000000010f38c0_0, 0;
+    %assign/vec4 v00000000010f3e60_0, 0;
+    %jmp T_0.5;
+T_0.3 ;
+    %load/vec4 v00000000010f4400_0;
+    %parti/s 1, 7, 4;
+    %load/vec4 v00000000010f4400_0;
+    %concat/vec4; draw_concat_vec4
+    %load/vec4 v00000000010f38c0_0;
+    %concat/vec4; draw_concat_vec4
+    %split/vec4 1;
+    %assign/vec4 v00000000010f40e0_0, 0;
+    %split/vec4 8;
+    %assign/vec4 v00000000010f38c0_0, 0;
+    %assign/vec4 v00000000010f3e60_0, 0;
+    %jmp T_0.5;
+T_0.5 ;
+    %pop/vec4 1;
+    %load/vec4 v00000000010f4360_0;
+    %addi 1, 0, 4;
+    %assign/vec4 v00000000010f4360_0, 0;
+T_0.1 ;
+    %jmp T_0;
+    .thread T_0;
+    .scope S_000000000108da30;
+T_1 ;
+    %vpi_call 2 8 "$dumpfile", "dmp1.vcd" {0 0 0};
+    %vpi_call 2 9 "$dumpvars", 32'sb00000000000000000000000000000000, S_000000000108da30 {0 0 0};
+    %end;
+    .thread T_1;
+    .scope S_000000000108da30;
+T_2 ;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v00000000010f64f0_0, 0, 1;
+    %vpi_call 2 14 "$display", "first example: a = 3 b = 17" {0 0 0};
+    %pushi/vec4 3, 0, 8;
+    %store/vec4 v00000000010f3aa0_0, 0, 8;
+    %pushi/vec4 17, 0, 8;
+    %store/vec4 v00000000010f3d20_0, 0, 8;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v00000000010f6090_0, 0, 1;
+    %delay 50, 0;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v00000000010f6090_0, 0, 1;
+    %delay 80, 0;
+    %vpi_call 2 16 "$display", "first example done" {0 0 0};
+    %vpi_call 2 17 "$display", "second example: a = 7 b = 7" {0 0 0};
+    %pushi/vec4 7, 0, 8;
+    %store/vec4 v00000000010f3aa0_0, 0, 8;
+    %pushi/vec4 7, 0, 8;
+    %store/vec4 v00000000010f3d20_0, 0, 8;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v00000000010f6090_0, 0, 1;
+    %delay 50, 0;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v00000000010f6090_0, 0, 1;
+    %delay 80, 0;
+    %vpi_call 2 19 "$display", "second example done" {0 0 0};
+    %vpi_call 2 20 "$finish" {0 0 0};
+    %end;
+    .thread T_2;
+    .scope S_000000000108da30;
+T_3 ;
+    %delay 5, 0;
+    %load/vec4 v00000000010f64f0_0;
+    %nor/r;
+    %store/vec4 v00000000010f64f0_0, 0, 1;
+    %jmp T_3;
+    .thread T_3;
+    .scope S_000000000108da30;
+T_4 ;
+    %wait E_000000000108a1d0;
+    %vpi_call 2 24 "$strobe", "ab: %d busy: %d at time=%t", v00000000010f3c80_0, v00000000010f5eb0_0, $stime {0 0 0};
+    %jmp T_4;
+    .thread T_4;
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "tb_booth.v";
+    "booth.v";
